@@ -22,6 +22,7 @@
       color: #FFFFFF;
       cursor: pointer;
       padding: 20px;
+      overflow: hidden;
     }
 
     .container {
@@ -47,7 +48,7 @@
       margin: 0;
     }
 
-    /* Animación */
+    /* Animación fade */
     .fade {
       animation: fadeIn 0.6s ease-in-out;
     }
@@ -63,7 +64,7 @@
       }
     }
 
-    /* Botones finales */
+    /* Botones */
     .buttons {
       margin-top: 20px;
       display: none;
@@ -88,6 +89,23 @@
       background: #ffffff;
       color: #ff4fd8;
     }
+
+    /* Patelitos de fresa */
+    .patelito {
+      position: fixed;
+      top: -40px;
+      font-size: 2rem;
+      animation: fall linear forwards;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
@@ -97,8 +115,8 @@
     <h1 id="phrase">HOLA AMOR! &lt;3</h1>
 
     <div class="buttons" id="finalButtons">
-      <button class="accept" onclick="accept()">Acepto. <3</button>
-      <button class="reject" onclick="reject()">No acepto. (・_・;)</button>
+      <button class="accept" onclick="accept()">Acepto 💖</button>
+      <button class="reject" onclick="reject()">No acepto 🙈</button>
     </div>
   </div>
 
@@ -107,9 +125,9 @@
       "Yo se que el 14 es una fecha importante para ti y ahora para mi.",
       "Es por eso que...",
       "hice este pequeño sitio",
-      "para pedirte una pequeña cosa pero muy importante",
-      "pero de una manera diferente, como me gusta hacerlo",
-      "sin antes decirte lo mucho que me encantas y lo importante que eres para mi amorcito",
+      "para pedirte una pequeña cosa pero importante",
+      "pero de una manera diferente, como me gusta hacer las cosas",
+      "sin antes decirte lo mucho que me encantas y lo importante que eres para mi",
       "¿Quieres ser mi 14 de Febrero?"
     ];
 
@@ -173,14 +191,34 @@
       }
     }
 
+    function lluviaDePatelitos() {
+      const cantidad = 30;
+
+      for (let i = 0; i < cantidad; i++) {
+        const patelito = document.createElement("div");
+        patelito.className = "patelito";
+        patelito.textContent = "🍓🍰";
+
+        patelito.style.left = Math.random() * 100 + "vw";
+        patelito.style.animationDuration = 2 + Math.random() * 2 + "s";
+
+        document.body.appendChild(patelito);
+
+        setTimeout(() => {
+          patelito.remove();
+        }, 4000);
+      }
+    }
+
     function accept() {
-      phraseEl.textContent = "Sabía que dirías que sí <3 Te amo muchisimo. (ꈍᴗꈍ)♡";
+      phraseEl.textContent = "Sabía que dirías que sí 💕 Te amo.";
       buttonsEl.style.display = "none";
       applyFade(phraseEl);
+      lluviaDePatelitos();
     }
 
     function reject() {
-      phraseEl.textContent = "Inténtalo de nuevo. o(╥﹏╥)";
+      phraseEl.textContent = "Inténtalo de nuevo 😌💗";
       applyFade(phraseEl);
     }
   </script>
