@@ -65,6 +65,16 @@
       }
     }
 
+    /* Latido de última frase */
+    .heartbeat {
+      animation: heartbeat 1s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
     /* Botones */
     .buttons {
       margin-top: 20px;
@@ -178,11 +188,19 @@
           phraseEl.textContent = phrases[phraseIndex++];
           phraseEl.style.display = "block";
 
-          // 🔹 Última frase más grande
+          // 🔹 Última frase más grande y efecto latido
           if (phraseIndex === phrases.length) {
             phraseEl.style.fontSize = "2rem";
+            phraseEl.classList.add("heartbeat");
+
+            // Mostrar botones después de 30 segundos
+            setTimeout(() => {
+              buttonsEl.style.display = "flex";
+              applyFade(buttonsEl);
+            }, 30000); // 30000 ms = 30 segundos
           } else {
             phraseEl.style.fontSize = "1.4rem";
+            phraseEl.classList.remove("heartbeat");
           }
 
           applyFade(phraseEl);
@@ -190,10 +208,6 @@
 
           if (phraseIndex === phrases.length) {
             finished = true;
-            setTimeout(() => {
-              buttonsEl.style.display = "flex";
-              applyFade(buttonsEl);
-            }, 600);
           }
         }
       }
@@ -220,7 +234,8 @@
 
     function accept() {
       phraseEl.textContent = "Sabía que dirías que sí <3 Te amo muchisimo. ( ˶˘ ³˘)♡";
-      phraseEl.style.fontSize = "1.8rem"; // 🔹 Último mensaje un poco más grande también
+      phraseEl.style.fontSize = "1.8rem";
+      phraseEl.classList.remove("heartbeat");
       buttonsEl.style.display = "none";
       applyFade(phraseEl);
       lluviaDePatelitos();
@@ -228,7 +243,8 @@
 
     function reject() {
       phraseEl.textContent = "Inténtalo de nuevo o eres maldito. /ᐠ - ˕ -マ ";
-      phraseEl.style.fontSize = "1.4rem"; // Restablecer tamaño normal
+      phraseEl.style.fontSize = "1.4rem";
+      phraseEl.classList.remove("heartbeat");
       applyFade(phraseEl);
     }
   </script>
