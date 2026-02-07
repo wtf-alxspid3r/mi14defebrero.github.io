@@ -60,7 +60,6 @@
   <div class="container">
   <img id="vibeImage" src="FOTO-1..JPG" alt="vibe image" />
   <h1 id="phrase">HOLA AMOR! <3 </h1>
-  <h2 id="phrase">Yo se que el 14 es una fecha importante para ti y ahora para mi. </h2>
 </div>
 
 
@@ -72,7 +71,7 @@
     "para pedirte una pequeña cosa pero importante",
     "pero de una manera diferente, como me gusta hacer las cosas",
     "sin antes decirte lo mucho que me encantas y lo importante que eres para mi",
-    "quieres ser mi 14 de Febrero?"
+    "¿Quieres ser mi 14 de Febrero?"
   ];
 
   const images = [
@@ -84,39 +83,42 @@
     "FOTO-6..JPG",
     "FOTO-7..JPG",
     "FOTO-8..JPG"
-
   ];
 
   const phraseEl = document.getElementById("phrase");
   const imageEl = document.getElementById("vibeImage");
 
-  // ESTADO INICIAL ESTÁ MOSTRANDO EL TEXTO
+  let phraseIndex = 0;
+  let imageIndex = 0;
   let showing = "text";
+
   imageEl.style.display = "none";
 
   function changeVibe() {
     if (showing === "text") {
-      // ocultar el texto
+      // ocultar texto
       phraseEl.style.display = "none";
 
-      // mostrar imagen
-      imageEl.src = images[Math.floor(Math.random() * images.length)];
-      imageEl.style.display = "block";
+      // mostrar imagen en orden
+      if (imageIndex < images.length) {
+        imageEl.src = images[imageIndex];
+        imageIndex++;
+      }
 
+      imageEl.style.display = "block";
       showing = "image";
     } else {
       // ocultar imagen
       imageEl.style.display = "none";
 
-      // mostrar texto
-      phraseEl.textContent =
-        phrases[Math.floor(Math.random() * phrases.length)];
-      phraseEl.style.display = "block";
+      // mostrar frase en orden
+      if (phraseIndex < phrases.length) {
+        phraseEl.textContent = phrases[phraseIndex];
+        phraseIndex++;
+      }
 
+      phraseEl.style.display = "block";
       showing = "text";
     }
   }
 </script>
-
-</body>
-</html>
