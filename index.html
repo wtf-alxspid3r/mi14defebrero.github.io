@@ -193,11 +193,10 @@
             phraseEl.style.fontSize = "2rem";
             phraseEl.classList.add("heartbeat");
 
-            // Mostrar botones después de 15 segundos
-            setTimeout(() => {
-              buttonsEl.style.display = "flex";
-              applyFade(buttonsEl);
-            }, 15000); // 15000 ms = 15 segundos
+            // Mostrar botones inmediatamente
+            buttonsEl.style.display = "flex";
+            applyFade(buttonsEl);
+
           } else {
             phraseEl.style.fontSize = "1.4rem";
             phraseEl.classList.remove("heartbeat");
