@@ -7,9 +7,7 @@
   <title>unclick+</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -18,11 +16,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Arial, Helvetica, sans-serif; /* Todo el texto en Arial */
+      font-family: Arial, Helvetica, sans-serif; /* Tipografía Arial */
       color: #FFFFFF;
       cursor: pointer;
       padding: 20px;
       overflow: hidden;
+      position: relative;
     }
 
     .container {
@@ -32,14 +31,24 @@
       padding: 24px;
       border-radius: 20px;
       backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 10;
     }
 
+    /* Fotos en forma de corazón */
     img {
       width: 100%;
       max-height: 300px;
       object-fit: cover;
-      border-radius: 16px;
       margin-bottom: 18px;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      position: relative;
+      border-radius: 16px;
+      clip-path: path('M10,30 
+                        A20,20 0 0,1 50,30 
+                        A20,20 0 0,1 90,30 
+                        Q90,60 50,90 
+                        Q10,60 10,30 Z');
     }
 
     h1 {
@@ -47,33 +56,19 @@
       line-height: 1.4;
       margin: 0;
       transition: font-size 0.5s ease;
+      position: relative;
+      z-index: 10;
     }
 
     /* Animación fade */
-    .fade {
-      animation: fadeIn 0.6s ease-in-out;
-    }
-
+    .fade { animation: fadeIn 0.6s ease-in-out; }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    /* Latido de última frase */
-    .heartbeat {
-      animation: heartbeat 1s ease-in-out infinite;
-    }
-
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-    }
+    .heartbeat { animation: heartbeat 1s ease-in-out infinite; }
+    @keyframes heartbeat { 0%,100% {transform:scale(1);} 50%{transform:scale(1.15);} }
 
     /* Botones */
     .buttons {
@@ -81,6 +76,8 @@
       display: none;
       gap: 16px;
       justify-content: center;
+      position: relative;
+      z-index: 10;
     }
 
     .buttons button {
@@ -91,15 +88,8 @@
       cursor: pointer;
     }
 
-    .accept {
-      background: #ff4fd8;
-      color: white;
-    }
-
-    .reject {
-      background: #ffffff;
-      color: #ff4fd8;
-    }
+    .accept { background: #ff4fd8; color: white; }
+    .reject { background: #ffffff; color: #ff4fd8; }
 
     /* Patelitos de fresa */
     .patelito {
@@ -110,13 +100,7 @@
       z-index: 9999;
       pointer-events: none;
     }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
+    @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity:0; } }
   </style>
 </head>
 
@@ -127,7 +111,7 @@
 
     <div class="buttons" id="finalButtons">
       <button class="accept" onclick="accept()">Acepto <3</button>
-      <button class="reject" onclick="reject()">No acepto </3</button>
+      <button class="reject" onclick="reject()">No acepto </3></button>
     </div>
   </div>
 
@@ -188,15 +172,12 @@
           phraseEl.textContent = phrases[phraseIndex++];
           phraseEl.style.display = "block";
 
-          // 🔹 Última frase más grande y efecto latido
           if (phraseIndex === phrases.length) {
             phraseEl.style.fontSize = "2rem";
             phraseEl.classList.add("heartbeat");
 
-            // Mostrar botones inmediatamente
             buttonsEl.style.display = "flex";
             applyFade(buttonsEl);
-
           } else {
             phraseEl.style.fontSize = "1.4rem";
             phraseEl.classList.remove("heartbeat");
@@ -205,29 +186,20 @@
           applyFade(phraseEl);
           showing = "text";
 
-          if (phraseIndex === phrases.length) {
-            finished = true;
-          }
+          if (phraseIndex === phrases.length) finished = true;
         }
       }
     }
 
     function lluviaDePatelitos() {
-      const cantidad = 30;
-
-      for (let i = 0; i < cantidad; i++) {
-        const patelito = document.createElement("div");
-        patelito.className = "patelito";
-        patelito.textContent = "🍓🍰";
-
-        patelito.style.left = Math.random() * 100 + "vw";
-        patelito.style.animationDuration = 2 + Math.random() * 2 + "s";
-
-        document.body.appendChild(patelito);
-
-        setTimeout(() => {
-          patelito.remove();
-        }, 4000);
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement("div");
+        p.className = "patelito";
+        p.textContent = "🍓🍰";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = 2 + Math.random() * 2 + "s";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 4000);
       }
     }
 
