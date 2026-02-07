@@ -18,7 +18,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: "Tahoma";
+      font-family: Arial, Helvetica, sans-serif; /* Todo el texto en Arial */
       color: #FFFFFF;
       cursor: pointer;
       padding: 20px;
@@ -46,6 +46,7 @@
       font-size: 1.4rem;
       line-height: 1.4;
       margin: 0;
+      transition: font-size 0.5s ease;
     }
 
     /* Animación fade */
@@ -177,6 +178,14 @@
         if (phraseIndex < phrases.length) {
           phraseEl.textContent = phrases[phraseIndex++];
           phraseEl.style.display = "block";
+
+          // 🔹 Última frase más grande
+          if (phraseIndex === phrases.length) {
+            phraseEl.style.fontSize = "2rem";
+          } else {
+            phraseEl.style.fontSize = "1.4rem";
+          }
+
           applyFade(phraseEl);
           showing = "text";
 
@@ -212,6 +221,7 @@
 
     function accept() {
       phraseEl.textContent = "Sabía que dirías que sí <3 Te amo muchisimo. ( ˶˘ ³˘)♡";
+      phraseEl.style.fontSize = "1.8rem"; // 🔹 Último mensaje un poco más grande también
       buttonsEl.style.display = "none";
       applyFade(phraseEl);
       lluviaDePatelitos();
@@ -219,6 +229,7 @@
 
     function reject() {
       phraseEl.textContent = "Inténtalo de nuevo o eres maldito. /ᐠ - ˕ -マ ";
+      phraseEl.style.fontSize = "1.4rem"; // Restablecer tamaño normal
       applyFade(phraseEl);
     }
   </script>
